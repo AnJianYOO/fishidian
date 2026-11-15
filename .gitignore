@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+venv/
+.venv/
+env/
+ENV/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Node（UI 模块与插件）
+node_modules/
+dist/
+build/
+.vite/
+npm-debug.log*
+
+# 密钥与环境（最重要的一条）
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+id_rsa*
+*.crt
+
+# 本机路径与运行态：每个机器都不一样，推上去只会误导别人
+fishidian-core-path.txt
+python-path.txt
+*.log
+*.jsonl
+tools/_runtime/
+tools/_research/
+ALERT.txt
+
+# 模型权重与数据（体积太大，走 Release 或网盘）
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.onnx
+models/
+data/
+memory/
+logs/
+*.db
+*.sqlite
+*.sqlite3
+
+# 系统
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
