@@ -1,0 +1,9 @@
+# dsh-fishidian 的 bundle patch —— 挂进 DSH 配置树
+# 机制与 dsh-pet 相同：id 必须全局唯一且与包名一致；name 解析到包入口 lib/index.js
+# config.ns 为记忆命名空间（不同 profile/场景隔离），默认 dsh:default
+
+- insert:
+    - id: dsh-fishidian
+      name: 'dsh-fishidian'
+      config:
+        ns: dsh:desktop

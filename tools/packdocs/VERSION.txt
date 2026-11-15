@@ -1,0 +1,39 @@
+大肥鱼 V1
+构建日期：2026-11-15
+形态：独立窗口 + 皮肤 + QQ 桥（和实际装出来的一致）
+安装位置：%USERPROFILE%\fishidian\（可用 -TargetRoot 装到别处）
+
+模块：
+  内核       fishidian-core（五行 / 记忆 / 时辰天气 / 缺口结算）
+  插件       dsh-fishidian
+  皮肤       dsh-client-ui-fatfish
+  QQ 桥      dsh-qq-onebot-bridge（第三方开源 MIT，上游 v0.8.9 + 本项目适配）
+  窗口模板   fatfish-window
+  二维码服务 tools\qq-qrcode-server.js（监听 127.0.0.1:8799）
+
+安装期硬门槛：
+  Node.js     >= 18（桥用 fetch / AbortSignal.timeout / structuredClone）
+  Python      >= 3.8（内核只用标准库，无第三方依赖）
+  两者不足会在 [0/9] 环境自检当场拦住，不会装完才发现 QQ 通不了
+
+运行期路径（这版写死了，改配置改不动）：
+  记忆库      <安装根>\workspace\memory\dfy.db
+  内核        <安装根>\fishidian-core
+  python      <安装根>\python-path.txt 里记的那个绝对路径
+  以上三个由 launch.ps1 在起窗口前写进 FISHIDIAN_DB / FISHIDIAN_CORE / FISHIDIAN_PYTHON。
+  cordis.patch.yml 里没有这三个键 —— 插件只读 ns，写上去也不会生效。
+  为什么要写死：不写死时，内核目录会落到打包那台机器的路径、记忆库会落到 ~\.dsh\fishidian-memory\，
+  两个都不报错，只表现为"她失忆"。
+
+装完安装根里还有这几份文档和脚本：
+  START-HERE.md   从装到验收，拿到包先看这个
+  QQ桥怎么用.md   QQ 通道怎么接：默认 NapCat、换别的 OneBot 实现、不装 QQ
+  README.md       使用手册：她怎么用、哪些配置能改
+  FOR-AI.md       给 AI 的安装 / 排错手册
+  README.txt      目录说明：workspace / logs / backup 各放什么
+  check_napcat.ps1  QQ 通道体检（报 build 号，不下结论）
+  verify_install.ps1 装完验证（只读，七类二十多项，退出码 0 = 无硬失败）
+
+不含：
+  NapCat（110 MB，需按本机 QQ 版本单独装，见 START-HERE 第 3 步）
+  任何 QQ 号 / token / 聊天记录 / 记忆库

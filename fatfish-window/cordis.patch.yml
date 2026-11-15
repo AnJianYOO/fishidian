@@ -1,0 +1,93 @@
+# 大肥鱼窗口（第二个 DSH 实例）的配置层模板
+#
+# 这个文件由 tools\install_fatfish_window.ps1 复制到
+#   %USERPROFILE%\.dsh-fatfish\profiles\desktop\cordis.patch.yml
+# 其中的 __WORK_HOME__ / __WEBHOOK_TOKEN__ / __BOT_QQ__ / __ALLOW_USER__ 会被脚本替换。
+#
+# 注意：本文件包含 QQ 桥的个人凭据（token）。对外发布安装包前，
+# 必须把这些值换成占位符或空值，不能把个人的 QQ 号与口令发出去。
+
+- id: ui-settings-general
+  name: "@deepseek-ai/dsh-client-ui-settings-general"
+  config:
+    welcomeNoticeVersion: 2026-08-13.1
+- id: agent-default-model
+  name: "@deepseek-ai/dsh-agent-default-model"
+  config:
+    provider: deepseek-account
+    model: deepseek-flash
+    reasoningEffort: low
+- id: ui-settings-account
+  name: "@deepseek-ai/dsh-client-ui-settings-account"
+  config:
+    version: 1
+    step: done
+    purpose: both
+    process: detailed
+    completion: completed
+    usage: detailed
+    developerTools: true
+- id: ui-chat
+  name: "@deepseek-ai/dsh-client-ui-chat"
+  config:
+    transcriptView: detailed
+    performanceUsage: detailed
+- id: ui-settings
+  name: "@deepseek-ai/dsh-client-ui-settings"
+  config:
+    enabled: true
+- id: agent-preset-registry
+  name: "@deepseek-ai/dsh-agent-preset-registry"
+  config:
+    default: standard
+    selectedDefault: standard
+
+# ===== 以下是大肥鱼窗口独有的部分 =====
+
+- id: dsh-qq-onebot-bridge
+  name: 'dsh-qq-onebot-bridge'
+  config:
+    botQq: __BOT_QQ__
+    # 白名单：谁能和她说话。安装时问的是"你自己的 QQ 号"，不是机器人号 ——
+    # 填成机器人号的话，装完谁都进不来，表现就是「QQ 发了她不回」。
+    # 多个号用英文逗号分隔，安装器会展开成下面每行一个。
+    allowUsers:
+__ALLOW_USERS_LINES__
+    replyOnlyWhenMentioned: true
+    # 主动发送通道：入站 webhook（插件 proactive/intel 经此直达 QQ，不烧模型）
+    webhookEnabled: true
+    webhookPort: 8798
+    webhookSources:
+      - name: dsh-fishidian
+        token: __WEBHOOK_TOKEN__
+        chat: u:__ALLOW_USER__
+        format: generic
+        template: "{text}"
+    memoryEnabled: true
+    memoryMaxEntries: 12
+    # fishidian 记忆内核直通：/记忆 /状态 /五行 /冷战 /主动 /表达 /情报 等免模型直调
+    #
+    # 注意：这里**没有** python / core / db 三个键，插件也不读它们
+    # （dsh-fishidian/lib/index.js 只取 config.ns；内核路径在模块加载时就定了）。
+    # 内核实际由环境变量决定，由安装根的 launch.ps1 在起窗口前设好：
+    #   FISHIDIAN_PYTHON   python 绝对路径（安装器写进 python-path.txt，launch.ps1 读）
+    #   FISHIDIAN_CORE     <安装根>\fishidian-core
+    #   FISHIDIAN_DB       <安装根>\workspace\memory\dfy.db
+    # 早前版这里写着 python/core/db 三个键，是从旧的结构抄过来的死键：
+    # 写了也不生效，只会让人以为改这里能换路径。已删除。
+    fishidian:
+      enabled: true
+      splitSend: true
+      ns: dsh:desktop
+
+# 大肥鱼主动性：各种心情都可能主动 + 通用情报层，经桥 webhook 发送
+- id: dsh-fishidian
+  name: 'dsh-fishidian'
+  config:
+    ns: dsh:desktop
+    proactive:
+      autosend: true
+      window: [7, 24]
+      webhook:
+        url: "http://127.0.0.1:8798/hook/dsh-fishidian?token=__WEBHOOK_TOKEN__"
+        chatKey: "u:__ALLOW_USER__"

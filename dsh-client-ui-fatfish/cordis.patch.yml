@@ -1,0 +1,6 @@
+# dsh-client-ui-fatfish 的 bundle patch —— 挂进 DSH 配置树
+# 机制与 dsh-fishidian / dsh-pet 相同：id 全局唯一且与包名一致；name 解析到包入口 lib/index.js
+
+- insert:
+    - id: dsh-client-ui-fatfish
+      name: 'dsh-client-ui-fatfish'
