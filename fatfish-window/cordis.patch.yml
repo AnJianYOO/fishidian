@@ -1,4 +1,4 @@
-# 大肥鱼窗口（第二个 DSH 实例）的配置层模板
+# 小鱼窗口（第二个 DSH 实例）的配置层模板
 #
 # 这个文件由 tools\install_fatfish_window.ps1 复制到
 #   %USERPROFILE%\.dsh-fatfish\profiles\desktop\cordis.patch.yml
@@ -42,7 +42,7 @@
     default: standard
     selectedDefault: standard
 
-# ===== 以下是大肥鱼窗口独有的部分 =====
+# ===== 以下是小鱼窗口独有的部分 =====
 
 - id: dsh-qq-onebot-bridge
   name: 'dsh-qq-onebot-bridge'
@@ -80,7 +80,7 @@ __ALLOW_USERS_LINES__
       splitSend: true
       ns: dsh:desktop
 
-# 大肥鱼主动性：各种心情都可能主动 + 通用情报层，经桥 webhook 发送
+# 小鱼主动性：各种心情都可能主动 + 通用情报层，经桥 webhook 发送
 - id: dsh-fishidian
   name: 'dsh-fishidian'
   config:

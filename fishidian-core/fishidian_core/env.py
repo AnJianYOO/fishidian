@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""fishidian_core.env —— 环境采样与变化检测（V1）
+"""fishidian_core.env —— 环境采样与变化检测（v0.1.0）
 
 设计约束（依据内部记录 021、022，未随仓库公开）：
 

@@ -406,7 +406,7 @@ class WuXingEngine:
             self.E[k] = max(0.0, self.E[k])
         self._save()
 
-    # ---- 心跳与外部输入（021 / 022，V1） ----
+    # ---- 心跳与外部输入（021 / 022，v0.1.0） ----
     def tick(self, now=None, tag=None, intensity=0.0):
         """心跳一步：补衰减 + 可选的单源注入。**不碰 count，也不趋近 W。**
 
@@ -480,7 +480,7 @@ class WuXingEngine:
           见面要化开   → 不在这里处理。用户首句产生的火自然相克冲淡金，
                         额外写"瞬间清零"会把真实感做没
 
-        V1 未接：散场方式（需要 coldwar 状态），先用 1.0。见 022 §八。
+        v0.1.0 未接：散场方式（需要 coldwar 状态），先用 1.0。见 022 §八。
         """
         now = time.time() if now is None else now
         try:

@@ -1,8 +1,8 @@
-﻿# 大肥鱼 V1 安装器
+﻿# 小鱼 v0.1.0 安装器
 # ---------------------------------------------------------------------------
 # 装完是什么样：%USERPROFILE%\fishidian\ 下有一套完整的她 ——
 #   内核 + 插件 + 皮肤 + QQ 桥 + 独立窗口 + 二维码服务，
-#   双击桌面「大肥鱼」就开出一个单独的窗口，和你的工作 DSH 完全分开。
+#   双击桌面「小鱼」就开出一个单独的窗口，和你的工作 DSH 完全分开。
 #
 # 为什么不用链接/junction：安装包要能直接拷给别人，链接在别人的机上会断。
 # 所以真拷一份运行文件，profile 的 link: 依赖指向这份拷贝。
@@ -58,7 +58,7 @@ function Die($m)  { Write-Host "    失败 $m" -ForegroundColor Red; throw $m }
 
 Write-Host ""
 Write-Host "=============================================" -ForegroundColor Cyan
-Write-Host "  大肥鱼 V1 安装" -ForegroundColor Cyan
+Write-Host "  小鱼 v0.1.0 安装" -ForegroundColor Cyan
 Write-Host "=============================================" -ForegroundColor Cyan
 
 # ============================================================ [0/9] 环境自检
@@ -469,7 +469,7 @@ Step "7/9" "桌面快捷方式"
 if ($NoShortcut) {
     Warn "按参数跳过"
 } else {
-    $lnkPath = Join-Path ([Environment]::GetFolderPath("Desktop")) "大肥鱼.lnk"
+    $lnkPath = Join-Path ([Environment]::GetFolderPath("Desktop")) "小鱼.lnk"
     $ps1 = Join-Path $Target "launch.ps1"
     $ws = New-Object -ComObject WScript.Shell
     $lnk = $ws.CreateShortcut($lnkPath)
@@ -478,9 +478,9 @@ if ($NoShortcut) {
     $lnk.WorkingDirectory = $Target
     $lnk.IconLocation = "$DshExe,0"
     $lnk.WindowStyle = 7
-    $lnk.Description = "打开大肥鱼的窗口（独立于工作 DSH）"
+    $lnk.Description = "打开小鱼的窗口（独立于工作 DSH）"
     $lnk.Save()
-    Ok "桌面 大肥鱼.lnk"
+    Ok "桌面 小鱼.lnk"
 }
 
 # 一条纯 ASCII 的命令行入口，给计划任务和不信任中文路径的场合用

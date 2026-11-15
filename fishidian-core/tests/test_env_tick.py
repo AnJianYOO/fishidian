@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""env / tick / settle_gap 的回归测试（V1 心跳机制）
+"""env / tick / settle_gap 的回归测试（v0.1.0 心跳机制）
 
 跑法（在 fishidian-core 目录下）：
     python -X utf8 tests\test_env_tick.py

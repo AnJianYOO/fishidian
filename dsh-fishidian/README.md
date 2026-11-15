@@ -1,6 +1,6 @@
 # dsh-fishidian
 
-大肥鱼情感记忆经络系统的 DSH 插件（宿主半侧）：TypeScript/JS 薄壳 + 本地 Python 内核 `fishidian-core`。
+小鱼情感记忆经络系统的 DSH 插件（宿主半侧）：TypeScript/JS 薄壳 + 本地 Python 内核 `fishidian-core`。
 
 ## 架构
 

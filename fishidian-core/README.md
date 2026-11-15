@@ -1,7 +1,7 @@
-# fishidian-core · 大肥鱼治理内核（Python 包）
+# fishidian-core · 小鱼治理内核（Python 包）
 
 > 从早期的原型脚本里把治理机制抽出来，做成一个统一的 Python 包，供 DSH 插件调用。
-> 版本 0.1.9 · 零第三方依赖（只用标准库）· `tests/test_core.py` **21/21 通过**。
+> 版本 0.1.0 · 零第三方依赖（只用标准库）· `tests/test_core.py` **21/21 通过**。
 
 ## 为什么有它
 

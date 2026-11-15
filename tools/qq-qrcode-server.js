@@ -53,7 +53,7 @@ const server = http.createServer((req, res) => {
   if (req.url === "/setup") {
     const roots = [
       path.join(process.env.USERPROFILE || os.homedir(), "fishidian", "config", "setup.json"),
-      path.join(process.env.USERPROFILE || os.homedir(), "大肥鱼", "config", "setup.json"),
+      path.join(process.env.USERPROFILE || os.homedir(), "小鱼", "config", "setup.json"),
       path.join(process.env.USERPROFILE || os.homedir(), ".dsh-fatfish", "config", "setup.json"),
     ];
     let body = null;
@@ -75,11 +75,11 @@ const server = http.createServer((req, res) => {
     req.on("end", () => {
       try {
         const incoming = JSON.parse(body || "{}");
-        // 三段目录优先级：新布局 fishidian\ > 老布局 大肥鱼\ > 最早 .dsh-fatfish\
+        // 三段目录优先级：新布局 fishidian\ > 老布局 小鱼\ > 最早 .dsh-fatfish\
         // 写成"哪个存在用哪个"而不是硬编码一个，是为了同一份脚本在
         // 新装机器 / 这台开发机 上都能跑出正确结果。
         const inst = path.join(process.env.USERPROFILE || os.homedir(), "fishidian", "config");
-        const home = path.join(process.env.USERPROFILE || os.homedir(), "大肥鱼", "config");
+        const home = path.join(process.env.USERPROFILE || os.homedir(), "小鱼", "config");
         const fallback = path.join(process.env.USERPROFILE || os.homedir(), ".dsh-fatfish", "config");
         let target = fallback;
         if (fs.existsSync(inst)) { target = inst; }

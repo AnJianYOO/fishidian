@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""fishidian_core.echo —— 规则回声：V1 的内心层
+"""fishidian_core.echo —— 规则回声：v0.1.0 的内心层
 
 013 §5.1 定的方案：不调模型、不生成，从记忆里挑两条拼一段"她在想什么"。
 

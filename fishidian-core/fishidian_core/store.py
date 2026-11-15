@@ -165,7 +165,7 @@ class Store:
         limit 不能沿用 query_all 的 5000：沉底区只增不减，实际跑一年就会越过去。
         实测 8000 条库里沉底 7801 条，limit=5000 时 2801 条永远进不了候选池，
         而且 ORDER BY r DESC 在 r 只有少数几档时同档内顺序不确定——丢哪批不可预测。
-        20000 条约 300ms 全扫，仍在可接受范围；超过这个量级要靠 V2 的表内预筛。
+        20000 条约 300ms 全扫，仍在可接受范围；超过这个量级要靠 v0.2 的表内预筛。
         """
         rows = self._db.execute(
             "SELECT * FROM memories WHERE ns=? AND status='archived' ORDER BY r DESC LIMIT ?",

@@ -2,7 +2,7 @@
   "name": "dsh-client-ui-fatfish",
   "version": "0.1.0",
   "private": true,
-  "description": "大肥鱼的界面身份：把 DSH 左栏的品牌位换成她的标志与名字",
+  "description": "小鱼的界面身份：把 DSH 左栏的品牌位换成她的标志与名字",
   "type": "module",
   "main": "lib/index.js",
   "exports": {

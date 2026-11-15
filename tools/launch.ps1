@@ -1,8 +1,8 @@
-﻿# 大肥鱼 一键启动
-# 双击桌面「大肥鱼」就会跑这个脚本：拉起二维码服务 -> 开她的窗口 -> 拉 QQ 通道。
+﻿# 小鱼 一键启动
+# 双击桌面「小鱼」就会跑这个脚本：拉起二维码服务 -> 开她的窗口 -> 拉 QQ 通道。
 #
 # 这个文件在安装包里叫 payload 之外的同级，安装后落在安装根（默认
-#   %USERPROFILE%\fishidian\launch.ps1，但 install_v1.ps1 的 -TargetRoot 可以装到别处）。
+#   %USERPROFILE%\fishidian\launch.ps1，但 install_v0.1.0.ps1 的 -TargetRoot 可以装到别处）。
 # tools\qq-qrcode-server.js 也在同一层，所以 $PSScriptRoot 相对路径可直接用。
 
 $ErrorActionPreference = "SilentlyContinue"
@@ -12,10 +12,10 @@ $ErrorActionPreference = "SilentlyContinue"
 # 只看 %USERPROFILE% 的话，装到 D:\fishidian 或临时目录就会找不到数据、开成空壳。
 #   $PSScriptRoot\data               本次安装实际落点（最可靠）
 #   %USERPROFILE%\fishidian\data     默认安装位置
-#   %USERPROFILE%\大肥鱼\data        早期结构
+#   %USERPROFILE%\小鱼\data        早期结构
 #   %USERPROFILE%\.dsh-fatfish       最早结构
 $fishRoot = Join-Path $env:USERPROFILE "fishidian"
-$newRoot  = Join-Path $env:USERPROFILE "大肥鱼"
+$newRoot  = Join-Path $env:USERPROFILE "小鱼"
 $oldRoot  = Join-Path $env:USERPROFILE ".dsh-fatfish"
 
 if ($PSScriptRoot -and (Test-Path -LiteralPath (Join-Path $PSScriptRoot "data\profiles"))) {

@@ -2,7 +2,7 @@
 
 这里是设计文档，写给想读懂代码、想自己改的人。**只想用的话不用看** —— 装完看安装根里的 `START-HERE.md` 就够了。
 
-哪份写错了、哪句看不懂，去 [GitHub 仓库](https://github.com/AnJianY00/fishidian/issues) 开个 Issue 说一声就行。
+哪份写错了、哪句看不懂，去 [GitHub 仓库](https://github.com/AnJianYOO/fishidian/issues) 开个 Issue 说一声就行。
 
 ## 从哪份开始
 

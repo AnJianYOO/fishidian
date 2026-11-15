@@ -1,4 +1,4 @@
-// dsh-fishidian —— 大肥鱼情感记忆经络系统（DSH 插件宿主半侧）
+// dsh-fishidian —— 小鱼情感记忆经络系统（DSH 插件宿主半侧）
 //
 // 架构：TS/JS 薄壳 + 本地 Python 内核（fishidian-core，见 package.json 旁目录）。
 // 子进程调用（spawnSync python cli.py），零常驻进程、无端口。
@@ -324,7 +324,7 @@ export function apply(ctx, config) {
                   const e = st.wuxing.E || {};
                   const top = Object.keys(e).sort((a, b) => (e[b] ?? 0) - (e[a] ?? 0))[0];
                   const temp = st.coldwar?.temperature ?? "亲近";
-                  moodLine = `（大肥鱼当前状态：情绪基调 ${top || "平和"}，关系温度 ${temp}）`;
+                  moodLine = `（小鱼当前状态：情绪基调 ${top || "平和"}，关系温度 ${temp}）`;
                   // 天气：只在对方这轮聊到天气/冷暖/穿衣/出门时才注入（否则她会天天拿天气当话题，
                   // 就是"每天都要提天气"的来源）。来自 state 的 intel 缓存（30 分钟一次，命中不打网络）。
                   // 城市由用户自己说的识别，不写死；没有城市/没网就少这一行。
@@ -358,7 +358,7 @@ export function apply(ctx, config) {
                 }
               } catch {}
               return (
-                "大肥鱼对你的情感记忆（来自大肥鱼情感记忆经络系统，供参考、不必刻意复述）：\n" +
+                "小鱼对你的情感记忆（来自小鱼情感记忆经络系统，供参考、不必刻意复述）：\n" +
                 mems.map((m) => "- （" + agoOf(m.born_at) + "）" + maskText(m.text || "")).join("\n") +
                 (moodLine ? "\n" + moodLine : "") +
                 (timeLine ? "\n" + timeLine : "") +
@@ -448,7 +448,7 @@ export function apply(ctx, config) {
     return String(last ?? "");
   };
 
-  ctx.effect(() => regCmd("memory", "记忆", "大肥鱼记忆：查看最近记忆", () => {
+  ctx.effect(() => regCmd("memory", "记忆", "小鱼记忆：查看最近记忆", () => {
     const r = fishidian(ns, "list");
     const mems = r?.memories ?? [];
     if (mems.length === 0) return { kind: "success", text: "（还没有记忆，多聊聊吧）" };
@@ -459,7 +459,7 @@ export function apply(ctx, config) {
     return { kind: "success", text: "她记得的（最近）：\n" + lines };
   }), "dsh-fishidian: /记忆 command");
 
-  ctx.effect(() => regCmd("state", "状态", "大肥鱼状态：体质/三池/熔断/五行/关系温度", () => {
+  ctx.effect(() => regCmd("state", "状态", "小鱼状态：体质/三池/熔断/五行/关系温度", () => {
     const st = fishidian(ns, "state");
     if (st?.error) return { kind: "error", text: "治理层不可用：" + st.error };
     const p = st.persona?.profile ?? "?";
@@ -478,7 +478,7 @@ export function apply(ctx, config) {
     };
   }), "dsh-fishidian: /状态 command");
 
-  ctx.effect(() => regCmd("forget", "忘", "大肥鱼遗忘：/忘 <记忆ID>（/记忆 可查 ID）", (...args) => {
+  ctx.effect(() => regCmd("forget", "忘", "小鱼遗忘：/忘 <记忆ID>（/记忆 可查 ID）", (...args) => {
     const id = Number(rawOf(...args).trim());
     if (!Number.isFinite(id) || id <= 0) {
       return { kind: "error", text: "用法：/忘 <记忆ID>（/记忆 可查 ID）" };
@@ -490,7 +490,7 @@ export function apply(ctx, config) {
   }), "dsh-fishidian: /忘 command");
 
   // ---- 人格涌现层命令（17 号 §12.8/§5/§6）：五行 / 冷战 / 主动性 ----
-  ctx.effect(() => regCmd("wuxing", "五行", "大肥鱼五行：情绪池与行气分布", () => {
+  ctx.effect(() => regCmd("wuxing", "五行", "小鱼五行：情绪池与行气分布", () => {
     const w = fishidian(ns, "wuxing");
     if (w?.error) return { kind: "error", text: "治理层不可用：" + w.error };
     const e = w.E ?? {};
@@ -507,7 +507,7 @@ export function apply(ctx, config) {
     };
   }), "dsh-fishidian: /五行 command");
 
-  ctx.effect(() => regCmd("coldwar", "冷战", "大肥鱼关系温度：冷战/疏离状态", () => {
+  ctx.effect(() => regCmd("coldwar", "冷战", "小鱼关系温度：冷战/疏离状态", () => {
     const c = fishidian(ns, "coldwar");
     if (c?.error) return { kind: "error", text: "治理层不可用：" + c.error };
     return {
@@ -518,7 +518,7 @@ export function apply(ctx, config) {
     };
   }), "dsh-fishidian: /冷战 command");
 
-  ctx.effect(() => regCmd("proactive", "主动", "大肥鱼主动性：状态驱动判断是否想主动联系", () => {
+  ctx.effect(() => regCmd("proactive", "主动", "小鱼主动性：状态驱动判断是否想主动联系", () => {
     const p = fishidian(ns, "proactive");
     if (p?.error) return { kind: "error", text: "治理层不可用：" + p.error };
     const f = p.factors ?? {};
@@ -531,7 +531,7 @@ export function apply(ctx, config) {
     };
   }), "dsh-fishidian: /主动 command");
 
-  ctx.effect(() => regCmd("expression", "表达", "大肥鱼表达：当前表达倾向与口癖库", () => {
+  ctx.effect(() => regCmd("expression", "表达", "小鱼表达：当前表达倾向与口癖库", () => {
     const e = fishidian(ns, "expression");
     if (e?.error) return { kind: "error", text: "治理层不可用：" + e.error };
     return {

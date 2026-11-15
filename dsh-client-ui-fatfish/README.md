@@ -1,7 +1,7 @@
 # dsh-client-ui-fatfish
 
-大肥鱼的界面身份插件。把 DeepSeek Harness（DSH）左侧栏顶部的品牌位——
-官方那个鲸鱼标 + `deepseek HARNESS`——换成她的小鱼标 + `大肥鱼`。
+小鱼的界面身份插件。把 DeepSeek Harness（DSH）左侧栏顶部的品牌位——
+官方那个鲸鱼标 + `deepseek HARNESS`——换成她的小鱼标 + `小鱼`。
 
 只改外观，不改任何功能、不碰会话、不碰记忆库。
 
@@ -14,7 +14,7 @@ DSH 的界面是插件化的，左侧栏预留了两个插槽：
 | 插槽 | 官方占位 | 本插件换成 |
 | --- | --- | --- |
 | `sidebar.brand.mark` | 鲸鱼 SVG | 粉色小鱼 SVG |
-| `sidebar.brand.name` | `deepseek HARNESS` | `大肥鱼` |
+| `sidebar.brand.name` | `deepseek HARNESS` | `小鱼` |
 
 实现方式与官方 `dsh-client-ui-brand-official` 同构：浏览器侧 `inject = ["slots"]`，
 用 `ctx.slots.inject` + `ctx.slots.register` 覆盖同一插槽。后者注册的组件会盖住先注册的，
@@ -30,7 +30,7 @@ dsh-client-ui-fatfish/
 ├── cordis.patch.yml    bundle patch：把自己插进 DSH 的配置树
 └── lib/
     ├── index.js        宿主侧（Node）入口，只有一个空 apply + 一个加载探针
-    └── client.js       浏览器侧，画小鱼 + 写「大肥鱼」三个字
+    └── client.js       浏览器侧，画小鱼 + 写「小鱼」三个字
 ```
 
 开发时用 junction 把源码目录挂进 `~/.dsh/profiles/desktop/node_modules/dsh-client-ui-fatfish`，改完源码重启 DSH 才会生效。
@@ -94,7 +94,7 @@ node $pnpm install --prefer-offline --config.confirmModulesPurge=false
 
 可靠的办法有两个：
 
-1. **看界面**：左栏顶部是 `deepseek HARNESS` 还是 `大肥鱼`。
+1. **看界面**：左栏顶部是 `deepseek HARNESS` 还是 `小鱼`。
 2. **看探针日志**：`~/.dsh/fatfish-ui-load.log`。
    宿主侧 `apply()` 被调用时会追加一行 `apply-called pid=...`。
    有这行 = 宿主侧加载成功，问题只可能在浏览器侧；
@@ -124,5 +124,5 @@ node $pnpm install --prefer-offline --config.confirmModulesPurge=false
 - 要更像她的专属界面，下一步可以往下做：
   - 换配色 token（全站走 `--dsw-alias-*` / `--dsw-specific-sidebar-fill`）
   - 左栏加她的情绪条 / 状态行
-  - 工作区分区：一个工作区叫「大肥鱼」、一个叫「工作」
+  - 工作区分区：一个工作区叫「小鱼」、一个叫「工作」
 - 这三项做完再谈打包进安装包。

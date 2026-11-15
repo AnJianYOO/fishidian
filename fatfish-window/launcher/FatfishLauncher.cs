@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
-// 大肥鱼窗口启动器
+// 小鱼窗口启动器
 // 因为 Windows 快捷方式无法携带环境变量，用这个 exe 代劳：
 // 设置 DSH_HOME 指向独立数据根，再用独立 --user-data-dir 拉起 DSH。
 // 退出码：0 成功 / 1 找不到 DSH / 2 启动失败 / 3 异常 / 9 环境变量缺失

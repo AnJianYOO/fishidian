@@ -1,14 +1,14 @@
-﻿# 大肥鱼 V1 安装包自检
-# 用法：powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify_v1_package.ps1
+﻿# 小鱼 v0.1.0 安装包自检
+# 用法：powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify_v0.1.0_package.ps1
 #
 # 只做静态核验，不安装、不动用户目录。装包前跑一遍，能拦住九成的低级错误。
 
 $ErrorActionPreference = "Continue"
 $root = Split-Path -Parent $PSScriptRoot
-if (-not (Test-Path -LiteralPath (Join-Path $root "tools\build_v1_package.py"))) {
+if (-not (Test-Path -LiteralPath (Join-Path $root "tools\build_v0.1.0_package.py"))) {
     $root = Split-Path -Parent (Split-Path -Parent $PSCommandPath)
 }
-$pkg = Join-Path $root "_release\fishidian-v1"
+$pkg = Join-Path $root "_release\fishidian-v0.1.0"
 
 $pass = 0
 $fail = 0
@@ -35,18 +35,18 @@ function Head($msg) {
 }
 
 Write-Host ""
-Write-Host "大肥鱼 V1 包自检" -ForegroundColor Cyan
+Write-Host "小鱼 v0.1.0 包自检" -ForegroundColor Cyan
 Write-Host ("包目录：" + $pkg)
 
 if (-not (Test-Path -LiteralPath $pkg)) {
-    Write-Host "包目录不存在，先跑 build_v1_package.py" -ForegroundColor Red
+    Write-Host "包目录不存在，先跑 build_v0.1.0_package.py" -ForegroundColor Red
     exit 1
 }
 
 # ---------- 1. 包根文件 ----------
 Head "1. 包根文件"
 $rootFiles = @(
-    "install.cmd", "install_v1.ps1", "launch.ps1", "check_napcat.ps1", "verify_install.ps1",
+    "install.cmd", "install_v0.1.0.ps1", "launch.ps1", "check_napcat.ps1", "verify_install.ps1",
     "README.md", "START-HERE.md", "FOR-AI.md", "VERSION.txt", "QQ桥怎么用.md"
 )
 foreach ($f in $rootFiles) {
@@ -60,7 +60,7 @@ foreach ($f in $rootFiles) {
 
 # ---------- 2. ps1 编码与语法 ----------
 Head "2. PowerShell 脚本编码 / 语法（5.1 兼容）"
-$ps1s = @("install_v1.ps1", "launch.ps1", "check_napcat.ps1", "verify_install.ps1")
+$ps1s = @("install_v0.1.0.ps1", "launch.ps1", "check_napcat.ps1", "verify_install.ps1")
 foreach ($f in $ps1s) {
     $p = Join-Path $pkg $f
     if (-not (Test-Path -LiteralPath $p)) { Bad ($f + " 不存在，跳过检查"); continue }
@@ -101,7 +101,7 @@ if (Test-Path -LiteralPath $cmdPath) {
     if ($nonAscii) { Bad "含非 ASCII 字节（chcp 之前必然乱码）" } else { Ok "纯 ASCII" }
 
     $craw = [IO.File]::ReadAllText($cmdPath, [Text.Encoding]::ASCII)
-    if ($craw -match "install_v1\.ps1") { Ok "调用 install_v1.ps1" } else { Bad "没调用 install_v1.ps1" }
+    if ($craw -match "install_v1\.ps1") { Ok "调用 install_v0.1.0.ps1" } else { Bad "没调用 install_v0.1.0.ps1" }
 } else {
     Bad "install.cmd 缺失"
 }
@@ -246,7 +246,7 @@ if ((Test-Path -LiteralPath $cli) -and (Get-Command python -ErrorAction Silently
 
 # ---------- 8. zip ----------
 Head "8. zip 包"
-$zips = @(Get-ChildItem -LiteralPath (Join-Path $root "_release") -Filter "fishidian-v1-*.zip" -File -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending)
+$zips = @(Get-ChildItem -LiteralPath (Join-Path $root "_release") -Filter "fishidian-v0.1.0-*.zip" -File -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending)
 if ($zips.Count -gt 0) {
     $z = $zips[0]
     Ok ($z.Name + "  " + [math]::Round($z.Length/1KB,1) + " KB")

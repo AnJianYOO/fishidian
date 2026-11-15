@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-"""fishidian_daemon —— 独立心跳进程（V1）
+"""fishidian_daemon —— 独立心跳进程（v0.1.0）
 
 **为什么需要它**：插件里那四个定时器（sweep / vault / backup / proactive）全长在
 DSH 的 `index.js` 里，靠 DSH 的 ctx 活着。DSH 窗口一关，tick 也停 —— 那"关机三天
-她还在过日子"就是假的。所以 V1 的门槛不在五行，在于有这么一个不依赖 DSH 的进程。
+她还在过日子"就是假的。所以 v0.1.0 的门槛不在五行，在于有这么一个不依赖 DSH 的进程。
 
-**它做什么**（与 index.js 对齐，但只做 V1 需要的）：
+**它做什么**（与 index.js 对齐，但只做 v0.1.0 需要的）：
     tick      10 分钟   心跳：结算缺口 + 采环境 + 注入
     sweep     10 分钟   离线巡检（降温/迁移/归档）
     backup    24 小时   整库快照（sqlite backup API，不能用 copyfile）
-    proactive 不做      主动发消息要 DSH 的 webhook；V1 只让她"状态对"，不主动发
+    proactive 不做      主动发消息要 DSH 的 webhook；v0.1.0 只让她"状态对"，不主动发
 
 **怎么起**：
     pythonw.exe daemon.py --ns dsh:desktop --db "<库路径>"

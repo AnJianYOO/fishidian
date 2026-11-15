@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""大肥鱼 V1 安装包构建器
+"""小鱼 v0.1.0 安装包构建器
 
 包内形态 = 实际装出来的样子：内核 + 插件 + 皮肤 + QQ 桥 + 独立窗口 + 二维码服务。
-装完从桌面双击就能开出一个单独的大肥鱼窗口，不碰工作 DSH。
+装完从桌面双击就能开出一个单独的小鱼窗口，不碰工作 DSH。
 
 用法：
-    python -X utf8 tools/build_v1_package.py
+    python -X utf8 tools/build_v0.1.0_package.py
 
 为什么 node_modules 不带：桥的 node_modules 是 pnpm 的 junction 森林
 （实测 1286 个 ReparsePoint），拷到别的机器全是死链。桥只依赖 ws 一个包，
@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 PACKDOCS = TOOLS / "packdocs"
 REL = ROOT / "_release"
-OUT = REL / "fishidian-v1"
+OUT = REL / "fishidian-v0.1.0"
 PAYLOAD = OUT / "payload"
 
 CORE_SRC = ROOT / "fishidian-core"
@@ -100,7 +100,7 @@ def build_core():
 
 
 def build_plugin():
-    """大肥鱼插件本体（D 盘为源；C 盘那份有一堆 .bak 和旧版本）"""
+    """小鱼插件本体（D 盘为源；C 盘那份有一堆 .bak 和旧版本）"""
     dst = PAYLOAD / "dsh-fishidian"
     files, size = cp_tree(FISH_SRC, dst, FISH_SKIP_DIRS)
     return files, size
@@ -153,7 +153,7 @@ def build_scripts():
     """安装器 / 启动器 / NapCat 体检 / 装完验证，放包根（install.cmd 同级）"""
     n = 0
     size = 0
-    for name in ("install_v1.ps1", "launch.ps1", "check_napcat.ps1", "verify_install.ps1"):
+    for name in ("install_v0.1.0.ps1", "launch.ps1", "check_napcat.ps1", "verify_install.ps1"):
         p = TOOLS / name
         if p.exists():
             cp(p, OUT / name)
@@ -187,7 +187,7 @@ def build_install_cmd():
         "cd /d \"%~dp0\"\r\n"
         "echo.\r\n"
         "echo  ==========================================\r\n"
-        "echo    Fishidian V1 installer\r\n"
+        "echo    Fishidian v0.1.0 installer\r\n"
         "echo  ==========================================\r\n"
         "echo.\r\n"
         "echo  Read START-HERE.md first if you are a person.\r\n"
@@ -195,7 +195,7 @@ def build_install_cmd():
         "echo.\r\n"
         "echo  Press Ctrl+C to cancel, or press Enter to start.\r\n"
         "pause >nul\r\n"
-        "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%~dp0install_v1.ps1\"\r\n"
+        "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%~dp0install_v0.1.0.ps1\"\r\n"
         "if errorlevel 1 (\r\n"
         "  echo.\r\n"
         "  echo  Install failed. Read the message above, then see START-HERE.md troubleshooting.\r\n"
@@ -213,7 +213,7 @@ def build_install_cmd():
 
 
 def make_zip(stamp: str):
-    zpath = REL / f"fishidian-v1-{stamp}.zip"
+    zpath = REL / f"fishidian-v0.1.0-{stamp}.zip"
     if zpath.exists():
         zpath.unlink()
     with zipfile.ZipFile(str(zpath), "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
@@ -235,7 +235,7 @@ def main():
     stamp = datetime.now().strftime("%Y%m%d")
     print("")
     print("=" * 52)
-    print("  大肥鱼 V1 构建")
+    print("  小鱼 v0.1.0 构建")
     print("=" * 52)
     print(f"  输出目录 : {OUT}")
 
@@ -287,7 +287,7 @@ def main():
 
     print("")
     print("  下一步自检：")
-    print("    powershell -File tools\\verify_v1_package.ps1")
+    print("    powershell -File tools\\verify_v0.1.0_package.ps1")
     print("")
     return 0
 

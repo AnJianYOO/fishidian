@@ -1,6 +1,6 @@
 # 给 AI 的安装指南
 
-你在帮一个人在这台 Windows 电脑上装「大肥鱼」。按顺序做，每一步都有判据，别跳步、别猜。
+你在帮一个人在这台 Windows 电脑上装「小鱼」。按顺序做，每一步都有判据，别跳步、别猜。
 
 ---
 
@@ -17,7 +17,7 @@
 用户很可能只给你一个 URL，或者一个本地路径。先落到磁盘，再确认解压对了。
 
 ```powershell
-$zip = Join-Path $env:TEMP "fishidian-v1.zip"
+$zip = Join-Path $env:TEMP "fishidian-v0.1.0.zip"
 # 把「用户给的链接」换成真地址；用户给的是本地路径时，直接用那个路径当 $zip、跳过这一行
 Invoke-WebRequest -Uri "用户给的链接" -OutFile $zip -UseBasicParsing
 $dst = Join-Path $env:TEMP "fishidian-unzip"
@@ -78,8 +78,8 @@ Test-Path "$env:LOCALAPPDATA\Programs\DeepSeek Harness\resources\runtime\primary
 |---|---|---|
 | DSH | 返回 `True` | 让用户去 dsh.deepseek.com 装，装完**登录一次**（登录后 token 自动带上，不需要用户手动填 API Key） |
 | DSH 进程 | 没有输出 | 让用户右键托盘图标退出，全部关掉 |
-| node | `>= v18` | 让用户装 nodejs.org 的 LTS。**这是硬门槛**：桥用 `fetch`(bridge.js:98 等 12 处) / `AbortSignal.timeout` / `structuredClone`(store.js:158)，Node 16 装得上但 QQ 通道起不来，且报错不指向版本。`install_v1.ps1:89` 现在会当场拦住 |
-| python | `>= 3.8` | 让用户装 python.org，**必须勾 Add python.exe to PATH**。实测内核兼容 3.8+（无 `match`、无 `removeprefix`、全部 `from __future__ import annotations`）。⚠️ 敲 `python` 弹出微软商店 = 装的是占位 stub，`install_v1.ps1:94` 会因为 `--version` 退出码非 0 而拦住 |
+| node | `>= v18` | 让用户装 nodejs.org 的 LTS。**这是硬门槛**：桥用 `fetch`(bridge.js:98 等 12 处) / `AbortSignal.timeout` / `structuredClone`(store.js:158)，Node 16 装得上但 QQ 通道起不来，且报错不指向版本。`install_v0.1.0.ps1:89` 现在会当场拦住 |
+| python | `>= 3.8` | 让用户装 python.org，**必须勾 Add python.exe to PATH**。实测内核兼容 3.8+（无 `match`、无 `removeprefix`、全部 `from __future__ import annotations`）。⚠️ 敲 `python` 弹出微软商店 = 装的是占位 stub，`install_v0.1.0.ps1:94` 会因为 `--version` 退出码非 0 而拦住 |
 | pnpm.cjs | 返回 `True` | DSH 装得不完整，让用户重装 DSH |
 
 **不要替用户安装 DSH / node / python**，除非用户明确要求。这三样都是有账号或系统级影响的安装。
@@ -92,15 +92,15 @@ Test-Path "$env:LOCALAPPDATA\Programs\DeepSeek Harness\resources\runtime\primary
 
 ```powershell
 Set-Location -LiteralPath "包根的实际路径"
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v1.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v0.1.0.ps1
 ```
 
-**不要跑 `install.cmd` 而跑 `install_v1.ps1`**：`.cmd` 是给用户双击用的，它里面会 `chcp 65001` 并调同一个 ps1；你在 PowerShell 里直接叫 ps1 更干净，也不受代码页影响。
+**不要跑 `install.cmd` 而跑 `install_v0.1.0.ps1`**：`.cmd` 是给用户双击用的，它里面会 `chcp 65001` 并调同一个 ps1；你在 PowerShell 里直接叫 ps1 更干净，也不受代码页影响。
 
 要顺手填 QQ 号（用户给了就传，没给就别传，脚本会自己走非交互分支留占位）：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v1.ps1 -BotQq 123456789
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v0.1.0.ps1 -BotQq 123456789
 ```
 
 **这条命令是安全的**：如果 stdin 被重定向（你用管道跑），脚本检测到后会自动跳过所有 `Read-Host`，不会挂住。
@@ -115,7 +115,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v1.ps1 -BotQq 1234
 演练命令长这样（装到临时目录，不碰用户现有环境）：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v1.ps1 -TargetRoot "$env:TEMP\fishidian-drill" -BotQq 10000000 -SkipNapCat -NoShortcut -SkipDshCheck
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v0.1.0.ps1 -TargetRoot "$env:TEMP\fishidian-drill" -BotQq 10000000 -SkipNapCat -NoShortcut -SkipDshCheck
 ```
 
 `-SkipNapCat` 跳过 NapCat 体检、`-NoShortcut` 不建桌面图标 —— 演练时都不需要。
@@ -131,7 +131,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\install_v1.ps1 -TargetRoot
 [5/9] 装依赖（pnpm install） ... 依赖装好 + 4 个插件 OK
      桥自己的依赖（只有 ws 一个）... 桥 ws 就位（v8.x.x，真目录）
 [6/9] QQ 通道组件体检（NapCat） ... 一段 build 号报告
-[7/9] 桌面快捷方式 ... 桌面 大肥鱼.lnk + run-fishidian.cmd
+[7/9] 桌面快捷方式 ... 桌面 小鱼.lnk + run-fishidian.cmd
 [8/9] 内核自检 ... 内核能跑（新库已建）
 [9/9] 装完了
 ```
@@ -198,7 +198,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\fishidian\
 
 ### 3.3 实际验一次
 
-让用户双击桌面「大肥鱼」，然后在窗口右下角点「连 QQ」。出现的浮层里应该有二维码。
+让用户双击桌面「小鱼」，然后在窗口右下角点「连 QQ」。出现的浮层里应该有二维码。
 
 | 看到什么 | 说明 |
 |---|---|
@@ -242,7 +242,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "$Inst\verify_install.ps1" -
 
 脚本判不了的四条（只有人看得出来）：
 
-1. 窗口能开、左下栏写着「大肥鱼」
+1. 窗口能开、左下栏写着「小鱼」
 2. 聊几句后 `dfy.db` 体积在长（**没长先看 `~\.dsh\fishidian-memory\` 有没有多出一个库 —— 那是路径跑偏，不是她忘性大**）
 3. 工作 DSH 里说的话，她答不上来（两套 profile 确实分开）
 4. QQ 里发消息，她的窗口能看到、她的回复会到 QQ
@@ -280,7 +280,7 @@ Get-ChildItem $Inst -File | Where-Object { $_.Name -in @("README.md","START-HERE
 
 再让用户亲手做一次两条隔离检查：
 
-- 双击桌面「大肥鱼」→ 窗口开出来，左下栏写「大肥鱼」
+- 双击桌面「小鱼」→ 窗口开出来，左下栏写「小鱼」
 - 打开工作 DSH 随便说两句 → 回她的窗口问「我刚才在工作窗口说了什么」→ **她应该不知道**
 
 ### 4.1 第一次起窗口（这个你不用等用户双击）
@@ -292,8 +292,8 @@ Start-Process -FilePath "powershell.exe" `
   -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File","$Inst\launch.ps1" `
   -WindowStyle Hidden
 Start-Sleep -Seconds 8
-# 三条判据：窗口标题是「大肥鱼」、8798 在听、进程起来了
-(Get-Process | Where-Object { $_.MainWindowTitle -like "*大肥鱼*" } | Select-Object Id, MainWindowTitle)
+# 三条判据：窗口标题是「小鱼」、8798 在听、进程起来了
+(Get-Process | Where-Object { $_.MainWindowTitle -like "*小鱼*" } | Select-Object Id, MainWindowTitle)
 @(Get-NetTCPConnection -LocalPort 8798 -State Listen -ErrorAction SilentlyContinue).Count
 ```
 
@@ -301,7 +301,7 @@ Start-Sleep -Seconds 8
 
 | 看到什么 | 说明 |
 |---|---|
-| 有一个进程的 `MainWindowTitle` 含「大肥鱼」 | 窗口起来了 |
+| 有一个进程的 `MainWindowTitle` 含「小鱼」 | 窗口起来了 |
 | 8798 的监听数 ≥ 1 | 二维码服务起来了（这一项和她聊不聊天无关，是给「连 QQ」用的） |
 | 都没有 | 读 `$Inst\logs\` 下最新的日志，或者让用户手动双击桌面图标看报什么 |
 
@@ -319,5 +319,5 @@ Start-Sleep -Seconds 8
 - 不要在 DSH 运行时装
 - 不要为了"验证能用"就替用户发 QQ 消息
 - 不要删 `%USERPROFILE%\fishidian\workspace\` —— 那是记忆库，删了就没了
-- **不要用 `install.cmd` 代替 `install_v1.ps1`**：`.cmd` 走交互分支，在你这儿会挂住等输入
+- **不要用 `install.cmd` 代替 `install_v0.1.0.ps1`**：`.cmd` 走交互分支，在你这儿会挂住等输入
 - **不要自己改 `cordis.patch.yml` 里的内核路径**：那里没有可改的键，路径由 `launch.ps1` 的环境变量决定（见 §4 那段说明）

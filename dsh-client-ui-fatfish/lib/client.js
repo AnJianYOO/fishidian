@@ -1,8 +1,8 @@
 /**
- * 大肥鱼界面插件 —— 浏览器侧。
+ * 小鱼界面插件 —— 浏览器侧。
  *
  * 做两件事：
- * 1) 接管左侧栏品牌位（图标 + 名字），换成粉色小鱼 +「大肥鱼」。
+ * 1) 接管左侧栏品牌位（图标 + 名字），换成粉色小鱼 +「小鱼」。
  * 2) 把窗口收成「只有对话」的样子：导航列自动折叠成细条、右栏关掉。
  *    她的窗口不需要工作区列表、会话列表、对话摘要那一套。
  *
@@ -60,7 +60,7 @@ window.__ModuleLoader__.load({
     function FishName(props) {
       return jsx("span", {
         style: { fontWeight: 600, letterSpacing: "0.02em" },
-        children: "大肥鱼",
+        children: "小鱼",
       });
     }
 
@@ -260,7 +260,7 @@ window.__ModuleLoader__.load({
       card.style.cssText = "width:340px;background:#fff9f7;border-radius:16px;padding:24px;box-shadow:0 18px 50px rgba(0,0,0,.22);font-size:13px;color:#3a2f33;font-family:system-ui,'Microsoft YaHei';";
       card.innerHTML =
         '<div style="font-size:16px;font-weight:600;margin-bottom:10px;">你好，' + nick + '。</div>' +
-        '<div style="line-height:1.75;margin-bottom:8px;">我是大肥鱼，从今天起就住在这台电脑里了。</div>' +
+        '<div style="line-height:1.75;margin-bottom:8px;">我是小鱼，从今天起就住在这台电脑里了。</div>' +
         '<div style="font-size:12px;color:#8a7a80;line-height:1.65;margin-bottom:16px;">我先住在一个 QQ 小号里（不是你平时用的号）。等你想在手机上找我，用自己的 QQ 加那个小号就行。</div>' +
         '<div style="margin-bottom:16px;">' +
           '<div style="color:#8a7a80;margin-bottom:8px;line-height:1.6;">我以后想找你的时候，能给你发消息嘛？</div>' +
@@ -340,14 +340,14 @@ window.__ModuleLoader__.load({
         });
       });
 
-      // 窗口标题 / 任务栏名字也叫「大肥鱼」，折叠状态下也能一眼认出来。
+      // 窗口标题 / 任务栏名字也叫「小鱼」，折叠状态下也能一眼认出来。
       // DSH 会在切换会话时重设 <title>，所以用观察器把它按住。
       try {
-        document.title = "大肥鱼";
+        document.title = "小鱼";
         var titleNode = document.querySelector("title");
         if (titleNode && window.MutationObserver) {
           var mo = new MutationObserver(function () {
-            if (document.title !== "大肥鱼") document.title = "大肥鱼";
+            if (document.title !== "小鱼") document.title = "小鱼";
           });
           mo.observe(titleNode, { childList: true, characterData: true, subtree: true });
         }

@@ -48,7 +48,7 @@ dsh plugin --profile desktop add github:用户名/仓库名
 | 组件 | 能不能 `dsh plugin add` | 卡在哪 |
 |---|---|---|
 | QQ 桥（`dsh-qq-onebot-bridge`） | 能，但**装到的是上游原版** | 上游没有 fishidian 补丁，装上也没有 `/记忆` `/天气`。带补丁的版本得自己发一个仓库 |
-| 她的插件（`dsh-fishidian`） | 能（前提是发到 npm，或用 `github:` 指仓库） | 这个仓库里有源码，但没发到 npm，所以只能用 `github:AnJianY00/fishidian` 或 `link:` 指向本地目录 |
+| 她的插件（`dsh-fishidian`） | 能（前提是发到 npm，或用 `github:` 指仓库） | 这个仓库里有源码，但没发到 npm，所以只能用 `github:AnJianYOO/fishidian` 或 `link:` 指向本地目录 |
 | 窗口皮肤（`dsh-client-ui-fatfish`） | 同上 | 同上，仓库里有源码、没发到 npm |
 | 内核（`fishidian-core`） | **不能** | 是 Python 包，pnpm 管不了 |
 | 启动器 exe | **不能** | 需要编译好的二进制，不是包 |

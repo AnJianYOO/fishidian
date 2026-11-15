@@ -1,4 +1,4 @@
-﻿# 大肥鱼 V1 装完验证
+﻿# 小鱼 v0.1.0 装完验证
 # ---------------------------------------------------------------------------
 # 用法（装完在同一个命令行里跑）：
 #   powershell -NoProfile -ExecutionPolicy Bypass -File "%USERPROFILE%\fishidian\verify_install.ps1"
@@ -64,7 +64,7 @@ $CoreDir  = Join-Path $Target "fishidian-core"
 $BridgeDir = Join-Path $Target "dsh-qq-onebot-bridge"
 
 Write-Host ""
-Write-Host "大肥鱼 V1 装完验证" -ForegroundColor Cyan
+Write-Host "小鱼 v0.1.0 装完验证" -ForegroundColor Cyan
 Write-Host ("安装根：" + $Target)
 
 # ---------- 1. 运行时版本 ----------
@@ -284,16 +284,16 @@ if ((Test-Path -LiteralPath $cli) -and $py) {
 # ---------- 7. 桌面快捷方式 ----------
 Head "7. 快捷方式"
 
-$lnk = Join-Path ([Environment]::GetFolderPath("Desktop")) "大肥鱼.lnk"
-if (Test-Path -LiteralPath $lnk) { Ok "桌面 大肥鱼.lnk 在" }
-else { Warn2 "桌面没有 大肥鱼.lnk（用 -NoShortcut 装的话是正常的，可以手动建一个指向 launch.ps1）" }
+$lnk = Join-Path ([Environment]::GetFolderPath("Desktop")) "小鱼.lnk"
+if (Test-Path -LiteralPath $lnk) { Ok "桌面 小鱼.lnk 在" }
+else { Warn2 "桌面没有 小鱼.lnk（用 -NoShortcut 装的话是正常的，可以手动建一个指向 launch.ps1）" }
 
 # ---------- 汇总 ----------
 Head "汇总"
 Write-Host ("  通过 " + $pass + " ｜ 失败 " + $fail + " ｜ 注意 " + $warn)
 if ($fail -eq 0) {
     Write-Host ""
-    Write-Host "  没有硬失败。双击桌面「大肥鱼」应该能开出窗口。" -ForegroundColor Green
+    Write-Host "  没有硬失败。双击桌面「小鱼」应该能开出窗口。" -ForegroundColor Green
     if ($warn -gt 0) { Write-Host "  上面还有几条「注意」，不影响开窗口，但可能影响 QQ 通道。" -ForegroundColor Yellow }
 } else {
     Write-Host ""
